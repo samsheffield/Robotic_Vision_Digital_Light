@@ -10,5 +10,5 @@ void setup() {
 void draw() {
   kinect.update();
   PImage ir = kinect.irImage(); 
-  image(ir, 640, 0); 
+  image(ir, 0, 0); 
 }
