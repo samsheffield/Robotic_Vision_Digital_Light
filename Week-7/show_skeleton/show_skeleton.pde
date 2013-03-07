@@ -3,6 +3,7 @@ SimpleOpenNI  kinect;
 void setup() {
     kinect = new SimpleOpenNI(this);
     kinect.enableDepth();
+    kinect.setMirror(true);
     kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
     size(640, 480);
     fill(255, 0, 0);

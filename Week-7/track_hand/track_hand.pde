@@ -12,7 +12,8 @@ void setup() {
 void draw() {
     kinect.update();
     PImage depthImage = kinect.depthImage();
-    image(depthImage, 0, 0);
+    background(0);
+    //image(depthImage, 0, 0);
 
     IntVector userList = new IntVector(); // WILL HOLD INTS OF USERS
     kinect.getUsers(userList); // STORE THE LIST OF DETECTED USERS
@@ -21,11 +22,13 @@ void draw() {
         int userId = userList.get(0); // GET THE FIRST ONE
         if (kinect.isTrackingSkeleton(userId)) { // CALIBRATED?
             PVector leftHand = new PVector(); // WILL HOLD LEFT HAND LOCATION
-            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHand); // PUT POSITION INTO VECTOR
-            PVector convertedLeftHand = new PVector();
-            kinect.convertRealWorldToProjective(leftHand, convertedLeftHand); // CONVERT THE HAND POSITION TO "PROJECTIVE" COORDINATES THAT MATCH THE DEPTH IMAGE
-            fill(255, 0, 0);
-            ellipse(convertedLeftHand.x, convertedLeftHand.y, 20, 20); // DRAW ELLIPSE
+            float confidence = kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND, leftHand); // PUT POSITION INTO VECTOR
+            if(confidence > 0.5){
+                PVector convertedLeftHand = new PVector();
+                kinect.convertRealWorldToProjective(leftHand, convertedLeftHand); // CONVERT THE HAND POSITION TO "PROJECTIVE" COORDINATES THAT MATCH THE DEPTH IMAGE
+                fill(255, 0, 0);
+                ellipse(convertedLeftHand.x, convertedLeftHand.y, 20, 20); // DRAW ELLIPSE
+            }           
         }
     }
 }

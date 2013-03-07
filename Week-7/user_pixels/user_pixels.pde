@@ -2,7 +2,6 @@ import SimpleOpenNI.*;
 SimpleOpenNI  kinect;
 
 int[] userMap; // FOR HOLDING USER PIXELS
-PImage rgbImage;
 
 void setup() {
     size(640, 480);

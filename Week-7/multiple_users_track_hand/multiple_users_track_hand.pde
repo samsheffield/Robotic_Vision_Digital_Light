@@ -22,15 +22,16 @@ void draw() {
 
     if (userList.size() > 0) { 
         for (int i = 0; i <userList.size(); i++) { 
-            if (kinect.isTrackingSkeleton(0)) {
-                user1LeftHand = getJointXYZ(0, SimpleOpenNI.SKEL_LEFT_HAND); 
-                fill(255, 0, 0);
-                ellipse(user1LeftHand.x, user1LeftHand.y, 20, 20);
-            }
-            if (kinect.isTrackingSkeleton(1)) {
-                user2LeftHand = getJointXYZ(1, SimpleOpenNI.SKEL_LEFT_HAND); 
-                fill(0, 255, 0);
-                ellipse(user2LeftHand.x, user2LeftHand.y, 20, 20);
+            int userId = userList.get(i); 
+            if (kinect.isTrackingSkeleton(userId)) {
+                PVector leftHand = new PVector();
+                leftHand = getJointXYZ(userId, SimpleOpenNI.SKEL_LEFT_HAND); 
+                if(userId == 1){
+                    fill(255, 0, 0);
+                }else{
+                    fill(0, 255, 0);
+                }
+                ellipse(leftHand.x, leftHand.y, 20, 20);
             }
         }
     }
@@ -38,8 +39,7 @@ void draw() {
 
 PVector getJointXYZ(int userId, int jointID) { 
     PVector joint = new PVector();
-    float confidence = kinect.getJointPositionSkeleton(userId, jointID, joint);
-    if (confidence < 0.5) return;
+    kinect.getJointPositionSkeleton(userId, jointID, joint);
     PVector convertedJoint = new PVector(); 
     kinect.convertRealWorldToProjective(joint, convertedJoint); 
 
