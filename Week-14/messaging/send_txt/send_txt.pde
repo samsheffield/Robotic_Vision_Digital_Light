@@ -9,7 +9,7 @@ import android.telephony.SmsManager; // DOCUMENTATION: http://developer.android.
 SmsManager sms;
 
 String txt = "Sent from Processing!";   // YOUR MESSAGE
-String sendTo = "4106226392"; // PHONE NUMBER OF RECIPIENT
+String sendTo = "0001112222"; // PHONE NUMBER OF RECIPIENT
 
 boolean messageSent;
 
